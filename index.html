@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+
+<head>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Pretendard:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skin Recipe</title>
+
+  <!-- 아이콘 -->
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+</head>
+
+<body>
+
+  <!-- =====================
+       로그인 페이지
+  ===================== -->
+
+  <section id="loginPage">
+
+    <div class="container">
+
+      <!-- 왼쪽 -->
+      <div class="left">
+
+        <div class="bg-circle1"></div>
+        <div class="bg-circle2"></div>
+
+        <div class="brand">
+
+          <h1>Skin Recipe</h1>
+
+          <p>
+            나만의 피부 레시피를 찾아보세요<br>
+
+            <span>
+              피부 진단부터 맞춤 추천까지!
+            </span>
+          </p>
+
+        </div>
+
+        <!-- 누끼 딴 PNG 넣기 -->
+        <img src="KakaoTalk_20260516_142443044.png" class="character">
+
+      </div>
+
+
+      <!-- 오른쪽 -->
+      <div class="right">
+
+        <div id="loginForm">
+
+          <div class="login-box">
+
+            <div class="login-title">
+              로그인
+            </div>
+
+            <div class="line"></div>
+
+            <!-- 이메일 -->
+            <div class="input-box">
+
+              <i class="fa-regular fa-user"></i>
+
+              <input type="text" id="signupEmail" placeholder="이메일을 입력하세요">
+
+            </div>
+
+
+            <!-- 비밀번호 -->
+            <div class="input-box">
+
+              <i class="fa-solid fa-lock"></i>
+
+              <input type="password" id="signupPassword" placeholder="비밀번호를 입력하세요">
+
+            </div>
+
+
+            <!-- 로그인 버튼 -->
+            <button class="login-btn" onclick="login()">
+              로그인
+            </button>
+
+
+            <!-- 구분 -->
+            <div class="divider">
+              또는
+            </div>
+
+
+            <!-- 카카오 -->
+            <button class="social-btn kakao-btn" onclick="kakaoLogin()">
+
+              <img src="카카오로고.png" class="kakao-logo">
+              카카오 로그인
+
+            </button>
+
+
+            <!-- 구글 -->
+            <button class="social-btn" onclick="googleLogin()">
+
+              <img src="https://cdn-icons-png.flaticon.com/512/281/281764.png">
+
+              구글 로그인
+
+            </button>
+
+
+            <!-- 네이버 -->
+            <button class="social-btn naver-btn" onclick="naverLogin()">
+
+              <div class="naver-logo">
+                N
+              </div>
+
+              네이버 로그인
+
+            </button>
+
+
+            <!-- 회원가입 -->
+            <div class="signup">
+
+              계정이 없으신가요?
+              <span onclick="showSignup()">회원가입</span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div id="signupForm" style="
+    display:none;
+    width:430px;
+  ">
+
+          <div class="login-box">
+
+            <div class="login-title">
+              회원가입
+            </div>
+
+            <div class="line"></div>
+
+            <!-- 닉네임 -->
+            <div class="input-box">
+
+              <i class="fa-regular fa-user"></i>
+
+              <input type="text" id="signupName" placeholder="닉네임 입력">
+
+            </div>
+
+            <!-- 이메일 -->
+            <div class="input-box">
+
+              <i class="fa-regular fa-envelope"></i>
+
+              <input type="text" id="signupEmail2" placeholder="이메일 입력">
+
+            </div>
+
+            <!-- 비밀번호 -->
+            <div class="input-box">
+
+              <i class="fa-solid fa-lock"></i>
+
+              <input type="password" id="signupPassword2" placeholder="비밀번호 입력">
+
+            </div>
+
+            <!-- 비밀번호 확인 -->
+            <div class="input-box">
+
+              <i class="fa-solid fa-lock"></i>
+
+              <input type="password" id="signupPasswordCheck" placeholder="비밀번호 확인">
+
+            </div>
+
+            <button class="login-btn" onclick="signup()">
+
+              회원가입 완료
+
+            </button>
+
+          </div>
+
+        </div>
+  </section>
+
+  <!-- =====================
+       메인 페이지
+  ===================== -->
+
+  <section id="mainPage">
+
+
+    <div class="main-layout">
+
+      <!-- 사이드바 -->
+      <div class="sidebar">
+
+        <div class="sidebar-logo">
+          Skin Recipe
+        </div>
+
+        <div class="menu">
+          <button onclick="changeContent('home')">
+            🏠 홈
+          </button>
+
+          <button onclick="changeContent('search')">
+            🔍 제품 검색
+          </button>
+
+          <button onclick="changeContent('diagnosis')">
+            🧪 피부 타입 진단
+          </button>
+
+          <button onclick="changeContent('recommend')">
+            💄 맞춤 추천
+          </button>
+
+          <div class="skin-menu">
+
+            <button class="skin-btn">
+              🌵 건성 피부
+            </button>
+
+            <div class="submenu">
+              <button onclick="showRecommendation('dry',1)">
+                수분 부족
+              </button>
+
+              <button onclick="showRecommendation('dry',2)">
+                피지 과다
+              </button>
+
+              <button onclick="showRecommendation('dry',3)">
+                트러블
+              </button>
+
+              <button onclick="showRecommendation('dry',4)">
+                민감함
+              </button>
+
+              <button onclick="showRecommendation('dry',5)">
+                모공·피부결
+              </button>
+            </div>
+
+          </div>
+
+          <div class="skin-menu">
+
+            <button class="skin-btn">
+              💧 지성 피부
+            </button>
+
+            <div class="submenu">
+              <button onclick="showRecommendation('oily',1)">
+                수분 부족
+              </button>
+
+              <button onclick="showRecommendation('oily',2)">
+                피지 과다
+              </button>
+
+              <button onclick="showRecommendation('oily',3)">
+                트러블
+              </button>
+
+              <button onclick="showRecommendation('oily',4)">
+                민감함
+              </button>
+
+              <button onclick="showRecommendation('oily',5)">
+                모공·피부결
+              </button>
+            </div>
+
+          </div>
+
+          <div class="skin-menu">
+
+            <button class="skin-btn">
+              ⚖️ 복합성 피부
+            </button>
+
+            <div class="submenu">
+              <button onclick="showRecommendation('combination',1)">
+                수분 부족
+              </button>
+
+              <button onclick="showRecommendation('combination',2)">
+                피지 과다
+              </button>
+
+              <button onclick="showRecommendation('combination',3)">
+                트러블
+              </button>
+
+              <button onclick="showRecommendation('combination',4)">
+                민감함
+              </button>
+
+              <button onclick="showRecommendation('combination',5)">
+                모공·피부결
+              </button>
+            </div>
+
+          </div>
+
+          <div class="skin-menu">
+
+            <button class="skin-btn">
+              🌸 민감성 피부
+            </button>
+
+            <div class="submenu">
+              <button onclick="showRecommendation('sensitive',1)">
+                수분 부족
+              </button>
+
+              <button onclick="showRecommendation('sensitive',2)">
+                피지 과다
+              </button>
+
+              <button onclick="showRecommendation('sensitive',3)">
+                트러블
+              </button>
+
+              <button onclick="showRecommendation('sensitive',4)">
+                민감함
+              </button>
+
+              <button onclick="showRecommendation('sensitive',5)">
+                모공·피부결
+              </button>
+            </div>
+
+          </div>
+
+          <button onclick="changeContent('mypage')">
+            👤 마이페이지
+          </button>
+
+        </div>
+
+      </div>
+
+      
+
+
+      <!-- 메인 콘텐츠 -->
+      <div class="main-content">
+
+        <div class="top-bar">
+
+          <div class="welcome" id="welcomeText">
+            환영합니다 😎
+          </div>
+
+          <div class="profile">
+
+            <img id="profileImage" src="https://cdn-icons-png.flaticon.com/512/847/847969.png">
+
+            <button class="logout-btn" onclick="logout()">
+              로그아웃
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="content-box" id="contentBox">
+
+          <h2>Skin Recipe 😎</h2>
+
+          <p>
+            피부 타입을 진단하고,
+            본인에게 맞는 스킨케어 루틴을 추천받을 수 있습니다.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </section>
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>
